@@ -26,5 +26,6 @@ public class ReservaVuelo {
     private int peopleQ;
     private String seatType;
     private double montoTotal;
+    private String estado;
 
 }

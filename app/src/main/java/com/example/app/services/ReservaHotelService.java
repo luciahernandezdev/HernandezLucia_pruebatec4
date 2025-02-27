@@ -42,7 +42,6 @@ public class ReservaHotelService {
         Hotel hotel = hotelRepository.findById(reservaHotelDTO.getHotelId())
                 .orElseThrow(() -> new RuntimeException("Hotel no encontrado"));
 
-        // Convertir HabitacionDTO a entidades Habitacion
         List<Habitacion> habitaciones = convertirHabitacionDTOaEntidad(reservaHotelDTO.getHabitaciones());
 
         // Crear la reserva de hotel
@@ -55,20 +54,17 @@ public class ReservaHotelService {
         reservaHotel.setConfirmada(reservaHotelDTO.isConfirmada());
         reservaHotel.setHabitaciones(habitaciones);
 
-        // Calcular y establecer el monto total de la reserva
         double montoTotal = calcularMontoTotal(reservaHotel);
         reservaHotel.setMontoTotal(montoTotal);
 
-        // Guardar la reserva en la base de datos
         reservaHotel = reservaHotelRepository.save(reservaHotel);
 
-        // Devolver el DTO de la reserva creada
         return convertirEntidadADTO(reservaHotel);
     }
 
     // Método para calcular el monto total de la reserva
     private double calcularMontoTotal(ReservaHotel reservaHotel) {
-        double precioPorNoche = 100; //precio fijo por noche
+        double precioPorNoche = 100;
         int noches = reservaHotel.getDateTo().getDayOfYear() - reservaHotel.getDateFrom().getDayOfYear();
         return precioPorNoche * noches;
     }

@@ -4,6 +4,7 @@ import com.example.app.dtos.VueloDTO;
 import com.example.app.entities.Vuelo;
 import com.example.app.exceptions.ErrorResponse;
 import com.example.app.repositories.VueloRepository;
+import com.example.app.repositories.ReservaVueloRepository;  // Repositorio correcto para las reservas
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ public class VueloService {
 
     @Autowired
     private VueloRepository vueloRepository;
+
+    @Autowired
+    private ReservaVueloRepository reservaVueloRepository;  // Usamos el repositorio correcto de reservas
 
     // Obtener todos los vuelos
     public ResponseEntity<?> obtenerTodosLosVuelos() {
@@ -107,6 +111,15 @@ public class VueloService {
             ErrorResponse errorResponse = new ErrorResponse("Vuelo con ID " + id + " no encontrado para eliminación.", "Error");
             return ResponseEntity.status(404).body(errorResponse);
         }
+
+        // Verificar si el vuelo tiene reservas activas
+        Long reservasActivas = reservaVueloRepository.countByVueloIdAndEstado(id, "ACTIVA");
+        if (reservasActivas > 0) {
+            ErrorResponse errorResponse = new ErrorResponse("No se puede eliminar el vuelo", "El vuelo tiene reservas activas.");
+            return ResponseEntity.status(400).body(errorResponse);  // 400 Bad Request: vuelo no puede eliminarse
+        }
+
+        // Eliminar el vuelo si no tiene reservas activas
         vueloRepository.delete(vuelo);
         return ResponseEntity.status(204).build();  // 204 No Content: éxito sin contenido
     }

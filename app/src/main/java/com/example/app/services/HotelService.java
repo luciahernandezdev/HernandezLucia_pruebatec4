@@ -36,32 +36,27 @@ public class HotelService {
 
     // Obtener un hotel por su ID
     public Object obtenerHotelPorId(Long id) {
-        // Buscar el hotel en la base de datos
+
         Optional<Hotel> hotelOptional = hotelRepository.findById(id);
 
-        // Si el hotel existe, lo convertimos en DTO y lo retornamos
         if (hotelOptional.isPresent()) {
             return convertirAHotelDTO(hotelOptional.get());
         }
 
-        // Si no se encuentra el hotel, creamos un ErrorResponse y lo devolvemos
         ErrorResponse errorResponse = new ErrorResponse("Hotel con ID " + id + " no encontrado.", "Error");
         return errorResponse;
     }
 
-    // Crear un nuevo hotel
     // Método para crear un hotel junto con sus habitaciones
     public Hotel crearHotel(HotelDTO hotelDTO) {
-        // Crear la entidad Hotel a partir del DTO
+
         Hotel hotel = new Hotel();
         hotel.setHotelCode(hotelDTO.getHotelCode());
         hotel.setName(hotelDTO.getName());
         hotel.setCiudad(hotelDTO.getCiudad());
 
-        // Guardar el hotel primero para obtener su id (si es necesario)
         Hotel hotelGuardado = hotelRepository.save(hotel);
 
-        // Si hay habitaciones asociadas al hotel, crearlas
         if (hotelDTO.getHabitaciones() != null && !hotelDTO.getHabitaciones().isEmpty()) {
             for (HabitacionDTO habitacionDTO : hotelDTO.getHabitaciones()) {
                 Habitacion habitacion = new Habitacion();
@@ -70,37 +65,29 @@ public class HotelService {
                 habitacion.setFechaSalida(habitacionDTO.getFechaSalida());
                 habitacion.setReservado(habitacionDTO.getReservado());
 
-                // Asociar la habitación con el hotel
                 habitacion.setHotel(hotelGuardado);
 
-                // Guardar la habitación en la base de datos
                 habitacionRepository.save(habitacion);
             }
         }
 
-        // Devolver el hotel con sus habitaciones ya guardadas
         return hotelGuardado;
     }
 
     // Actualizar un hotel existente
     public HotelDTO actualizarHotel(Long id, HotelDTO hotelDTO) {
-        // Buscar el hotel existente por su ID
         Optional<Hotel> hotelOptional = hotelRepository.findById(id);
 
-        // Verificar si el hotel existe
         if (hotelOptional.isPresent()) {
-            // Si el hotel existe, obtenemos el objeto Hotel
+
             Hotel hotel = hotelOptional.get();
 
-            // Actualizamos los campos del hotel con los valores del DTO
             hotel.setHotelCode(hotelDTO.getHotelCode());
             hotel.setName(hotelDTO.getName());
             hotel.setCiudad(hotelDTO.getCiudad());
 
-            // Guardar el hotel actualizado en la base de datos
             Hotel hotelActualizado = hotelRepository.save(hotel);
 
-            // Convertir la entidad Hotel actualizada a un DTO y devolverlo
             return convertirAHotelDTO(hotelActualizado);
         }
 

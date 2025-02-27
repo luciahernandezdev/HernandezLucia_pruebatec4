@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface ReservaVueloRepository extends JpaRepository<ReservaVuelo, Long> {
     List<ReservaVuelo> findByDateAndDestination(LocalDate date, String destination);
+    Long countByVueloIdAndEstado(Long vueloId, String estado);
+
+
 }
