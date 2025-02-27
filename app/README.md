@@ -35,7 +35,7 @@ Para ejecutar este proyecto, necesitas tener los siguientes requisitos previos:
 - Java 17+ o superior ☕
 - Maven para la gestión de dependencias 📦
 - MySQL como base de datos 🛢️
-- 
+
 ## 🛠️ Instalación
 
 Sigue estos pasos para instalar y ejecutar el proyecto:
