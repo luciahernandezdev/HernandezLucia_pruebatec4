@@ -55,11 +55,22 @@ public class ReservaHotelService {
         reservaHotel.setConfirmada(reservaHotelDTO.isConfirmada());
         reservaHotel.setHabitaciones(habitaciones);
 
+        // Calcular y establecer el monto total de la reserva
+        double montoTotal = calcularMontoTotal(reservaHotel);
+        reservaHotel.setMontoTotal(montoTotal);
+
         // Guardar la reserva en la base de datos
         reservaHotel = reservaHotelRepository.save(reservaHotel);
 
         // Devolver el DTO de la reserva creada
         return convertirEntidadADTO(reservaHotel);
+    }
+
+    // Método para calcular el monto total de la reserva
+    private double calcularMontoTotal(ReservaHotel reservaHotel) {
+        double precioPorNoche = 100; //precio fijo por noche
+        int noches = reservaHotel.getDateTo().getDayOfYear() - reservaHotel.getDateFrom().getDayOfYear();
+        return precioPorNoche * noches;
     }
 
     // Método para convertir HabitacionDTO a Habitacion (entidad)
@@ -83,7 +94,8 @@ public class ReservaHotelService {
                 reservaHotel.getPeopleQ(),
                 reservaHotel.getRoomType(),
                 reservaHotel.isConfirmada(),
-                habitacionesDTO
+                habitacionesDTO,
+                reservaHotel.getMontoTotal()
         );
     }
 
@@ -100,4 +112,3 @@ public class ReservaHotelService {
         );
     }
 }
-

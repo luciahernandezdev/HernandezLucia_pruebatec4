@@ -21,4 +21,5 @@ public class ReservaHotelDTO {
     private String roomType;
     private boolean confirmada;
     private List<HabitacionDTO> habitaciones;
+    private double montoTotal;
 }

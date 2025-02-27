@@ -30,6 +30,7 @@ public class ReservaHotel {
     private int peopleQ;
     private String roomType;
     private boolean confirmada;
+    private double montoTotal;
 
     @OneToMany(mappedBy = "reservaHotel", cascade = CascadeType.ALL)
     private List<Habitacion> habitaciones;

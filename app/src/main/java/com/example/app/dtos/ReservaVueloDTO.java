@@ -20,5 +20,6 @@ public class ReservaVueloDTO {
     private String destination;
     private int peopleQ;
     private String seatType;
+    private double montoTotal;
 }
 

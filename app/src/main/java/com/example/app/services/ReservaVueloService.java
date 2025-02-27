@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,11 +45,15 @@ public class ReservaVueloService {
         // Convertir DTO a entidad
         ReservaVuelo reserva = dtoToEntity(dto, vuelo.getId());
 
+        // Calcular el monto total
+        double montoTotal = calcularMontoTotal(reserva);
+        reserva.setMontoTotal(montoTotal);
+
         // Guardar en BD
         reserva = reservaVueloRepository.save(reserva);
 
         // Convertir de Entidad a DTO y retornar
-        return new ResponseEntity<>(entityToDto(reserva), HttpStatus.CREATED);
+        return new ResponseEntity<>(entityToDto(reserva, vuelo, montoTotal), HttpStatus.CREATED);
     }
 
 
@@ -66,7 +71,11 @@ public class ReservaVueloService {
         }
 
         // Convertir las reservas encontradas a DTOs y devolver la lista
-        return new ResponseEntity<>(reservas.stream().map(this::entityToDto).collect(Collectors.toList()), HttpStatus.OK);
+        return new ResponseEntity<>(reservas.stream().map(reserva -> {
+            Vuelo vuelo = vueloRepository.findById(reserva.getVueloId()).orElse(null);
+            double montoTotal = calcularMontoTotal(reserva); // Calcular monto por cada reserva
+            return entityToDto(reserva, vuelo, montoTotal);
+        }).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     private ReservaVuelo dtoToEntity(ReservaVueloDTO dto, Long vueloId) {
@@ -80,15 +89,22 @@ public class ReservaVueloService {
         return reserva;
     }
 
+    // Método para calcular el monto total
+    private double calcularMontoTotal(ReservaVuelo reserva) {
+        double precioPorPersona = 200; // Asumimos que el precio por persona es 200 (puedes ajustarlo según el caso)
+        return reserva.getPeopleQ() * precioPorPersona;
+    }
 
-    private ReservaVueloDTO entityToDto(ReservaVuelo reserva) {
+    private ReservaVueloDTO entityToDto(ReservaVuelo reserva, Vuelo vuelo, double montoTotal) {
         ReservaVueloDTO dto = new ReservaVueloDTO();
-        dto.setFlightNumber(null); // Puedes obtenerlo desde vueloRepository si lo necesitas
+        dto.setId(reserva.getId()); // Incluir el id de la reserva
+        dto.setFlightNumber(vuelo != null ? vuelo.getFlightNumber() : "No disponible"); // Si no encontramos vuelo, le asignamos un valor por defecto
         dto.setDate(reserva.getDate());
         dto.setOrigin(reserva.getOrigin());
         dto.setDestination(reserva.getDestination());
         dto.setPeopleQ(reserva.getPeopleQ());
         dto.setSeatType(reserva.getSeatType());
+        dto.setMontoTotal(montoTotal); // Incluir el monto total
         return dto;
     }
 }
