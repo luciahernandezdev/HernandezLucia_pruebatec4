@@ -15,10 +15,10 @@ Este es un proyecto de una aplicación de agencia de viajes que gestiona informa
 ## 📝 Descripción
 Este proyecto es una aplicación de gestión de una agencia de viajes que proporciona las siguientes funcionalidades:
 
-Hoteles 🏨: Crear, editar, listar y eliminar hoteles.
-Vuelos ✈️: Crear, editar, listar y eliminar vuelos.
-Usuarios 👤: Gestión de usuarios que pueden realizar reservas.
-Reservas 📅: Los usuarios pueden hacer reservas para vuelos y/o hoteles disponibles.
+1. Hoteles 🏨: Crear, editar, listar y eliminar hoteles.
+2. Vuelos ✈️: Crear, editar, listar y eliminar vuelos.
+3. Usuarios 👤: Gestión de usuarios que pueden realizar reservas.
+4. Reservas 📅: Los usuarios pueden hacer reservas para vuelos y/o hoteles disponibles.
 
 
 ## ⚙️ Tecnologías utilizadas
@@ -230,20 +230,20 @@ La aplicación expone varias rutas RESTful para interactuar con los datos:
 La aplicación expone varias rutas RESTful para interactuar con los datos:
 
 🏨 Rutas de Hoteles
-GET /hoteles: Obtiene la lista de todos los hoteles.
-POST /hoteles: Crea un nuevo hotel.
-PUT /hoteles/{id}: Modifica la información de un hotel existente.
-DELETE /hoteles/{id}: Elimina un hotel.
+- GET /hoteles: Obtiene la lista de todos los hoteles.
+- POST /hoteles: Crea un nuevo hotel.
+- PUT /hoteles/{id}: Modifica la información de un hotel existente.
+- DELETE /hoteles/{id}: Elimina un hotel.
 
 ✈️ Rutas de Vuelos
-GET /vuelos: Obtiene la lista de vuelos disponibles.
-POST /vuelos: Crea un nuevo vuelo.
-PUT /vuelos/{id}: Modifica la información de un vuelo existente.
-DELETE /vuelos/{id}: Elimina un vuelo.
+- GET /vuelos: Obtiene la lista de vuelos disponibles.
+- POST /vuelos: Crea un nuevo vuelo.
+- PUT /vuelos/{id}: Modifica la información de un vuelo existente.
+- DELETE /vuelos/{id}: Elimina un vuelo.
 
 📅 Rutas de Reservas
-GET /reservas: Obtiene la lista de todas las reservas.
-POST /reservas: Crea una nueva reserva para un vuelo y/o hotel.
+- GET /reservas: Obtiene la lista de todas las reservas.
+- POST /reservas: Crea una nueva reserva para un vuelo y/o hotel.
 
 ## 🧪 Pruebas Unitarias
 Se han implementado pruebas unitarias utilizando JUnit y Mockito.
