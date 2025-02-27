@@ -1,8 +1,8 @@
-# Agencia de Viajes 
+# 🌍 Agencia de Viajes ✈️
 
 Este es un proyecto de una aplicación de agencia de viajes que gestiona información de hoteles, vuelos, usuarios y reservas. El objetivo es proporcionar una plataforma para la gestión de viajes, con funcionalidades como la creación, modificación y eliminación de hoteles, vuelos y reservas.
 
-## Índice
+## 📑 Índice
 
 - [Descripción](#descripción)
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
@@ -12,16 +12,16 @@ Este es un proyecto de una aplicación de agencia de viajes que gestiona informa
 - [Cómo utilizar](#cómo-utilizar)
 - [Pruebas unitarias](#pruebas-unitarias)
 
-## Descripción
+## 📝 Descripción
+Este proyecto es una aplicación de gestión de una agencia de viajes que proporciona las siguientes funcionalidades:
 
-Este proyecto es una plataforma de gestión para una agencia de viajes, donde puedes manejar los siguientes aspectos:
+Hoteles 🏨: Crear, editar, listar y eliminar hoteles.
+Vuelos ✈️: Crear, editar, listar y eliminar vuelos.
+Usuarios 👤: Gestión de usuarios que pueden realizar reservas.
+Reservas 📅: Los usuarios pueden hacer reservas para vuelos y/o hoteles disponibles.
 
-- **Hoteles**: Crear, editar, listar y eliminar hoteles.
-- **Vuelos**: Crear, editar, listar y eliminar vuelos.
-- **Usuarios**: Gestionar usuarios que realizan las reservas.
-- **Reservas**: Los usuarios pueden hacer reservas para los vuelos y hoteles disponibles.
 
-## Tecnologías utilizadas
+## ⚙️ Tecnologías utilizadas
 
 - **Spring Boot**: Framework principal para la aplicación.
 - **JPA/Hibernate**: Para el manejo de la base de datos.
@@ -29,15 +29,14 @@ Este proyecto es una plataforma de gestión para una agencia de viajes, donde pu
 - **JUnit**: Framework para realizar pruebas unitarias.
 - **Mockito**: Biblioteca para la simulación de objetos en las pruebas.
 
-## Requisitos previos
+## ✅ Requisitos previos
+Para ejecutar este proyecto, necesitas tener los siguientes requisitos previos:
 
-Antes de ejecutar el proyecto, asegúrate de tener los siguientes requisitos:
-
-- **Java 17+** o superior.
-- **Maven** (para la gestión de dependencias y ejecución del proyecto).
-- **MySQL**: Asegúrate de tener una base de datos MySQL configurada.
-
-## Instalación
+- Java 17+ o superior ☕
+- Maven para la gestión de dependencias 📦
+- MySQL como base de datos 🛢️
+- 
+## 🛠️ Instalación
 
 Sigue estos pasos para instalar y ejecutar el proyecto:
 
@@ -65,6 +64,10 @@ Sigue estos pasos para instalar y ejecutar el proyecto:
 
    #La ruta a donde estara tu documentacion
    springdoc.swagger-ui.path=/doc
+
+  spring.security.user.name=agencia
+  spring.security.user.password=1234
+
 
   ```
 3. El archivo pom.xml contiene las dependencias necesarias para el proyecto, como Spring Boot, JPA, MySQL, Lombok, Swagger, entre otras:
@@ -198,8 +201,8 @@ Sigue estos pasos para instalar y ejecutar el proyecto:
 </project>
   
    ```
-## Estructura del proyecto
-
+## 🗂️ Estructura del Proyecto
+ ```
 agencia
 │
 ├── src/main/java/com/example/app
@@ -218,40 +221,31 @@ agencia
 ├── src/main/resources
 │   ├── application.properties  # Configuración del proyecto
 └── pom.xml              # Dependencias del proyecto
-
+ ```
 ## Como Utilizar
 Cómo utilizar
 La aplicación expone varias rutas RESTful para interactuar con los datos:
 
-- GET /hoteles: Obtiene la lista de todos los hoteles.
+🖥️ Cómo utilizar
+La aplicación expone varias rutas RESTful para interactuar con los datos:
 
-- POST /hoteles: Crea un nuevo hotel.
+🏨 Rutas de Hoteles
+GET /hoteles: Obtiene la lista de todos los hoteles.
+POST /hoteles: Crea un nuevo hotel.
+PUT /hoteles/{id}: Modifica la información de un hotel existente.
+DELETE /hoteles/{id}: Elimina un hotel.
 
-- PUT /hoteles/{id}: Modifica la información de un hotel existente.
+✈️ Rutas de Vuelos
+GET /vuelos: Obtiene la lista de vuelos disponibles.
+POST /vuelos: Crea un nuevo vuelo.
+PUT /vuelos/{id}: Modifica la información de un vuelo existente.
+DELETE /vuelos/{id}: Elimina un vuelo.
 
-- DELETE /hoteles/{id}: Elimina un hotel.
+📅 Rutas de Reservas
+GET /reservas: Obtiene la lista de todas las reservas.
+POST /reservas: Crea una nueva reserva para un vuelo y/o hotel.
 
-- GET /vuelos: Obtiene la lista de vuelos disponibles.
-
-- POST /vuelos: Crea un nuevo vuelo.
-
-- PUT /vuelos/{id}: Modifica la información de un vuelo existente.
-
-- DELETE /vuelos/{id}: Elimina un vuelo.
-
-- GET /usuarios: Obtiene la lista de todos los usuarios.
-
-- POST /usuarios: Crea un nuevo usuario.
-
-- PUT /usuarios/{id}: Modifica la información de un usuario.
-
-- DELETE /usuarios/{id}: Elimina un usuario.
-
-- GET /reservas: Obtiene la lista de reservas.
-
-- POST /reservas: Crea una nueva reserva para un vuelo y/o hotel.
-
-## Pruebas Unitarias
+## 🧪 Pruebas Unitarias
 Se han implementado pruebas unitarias utilizando JUnit y Mockito.
 
  1. Se envía solicitud de listado de todos los hoteles registrados.
